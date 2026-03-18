@@ -108,7 +108,9 @@ function showPage(pageName) {
     document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
     document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
     
-    if (pageName === 'game') {
+    if (pageName === 'create-character') {
+        document.getElementById('create-character').classList.remove('hidden');
+    } else if (pageName === 'game') {
         document.getElementById('game-page').classList.remove('hidden');
         document.querySelectorAll('.nav-btn')[0].classList.add('active');
     } else if (pageName === 'stats') {
