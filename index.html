@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>🦾 减肥大作战</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- 创建角色页面 -->
+        <div id="create-character" class="page">
+            <h1>🦾 减肥大作战</h1>
+            <div class="card">
+                <h2>创建你的角色</h2>
+                <div class="form-group">
+                    <label>角色名称</label>
+                    <input type="text" id="character-name" placeholder="给你的角色起个名字">
+                </div>
+                <div class="form-group">
+                    <label>当前体重 (kg)</label>
+                    <input type="number" id="current-weight" placeholder="例如：75">
+                </div>
+                <div class="form-group">
+                    <label>目标体重 (kg)</label>
+                    <input type="number" id="target-weight" placeholder="例如：65">
+                </div>
+                <button class="btn-primary" onclick="createCharacter()">开始游戏！</button>
+            </div>
+        </div>
+
+        <!-- 主游戏页面 -->
+        <div id="game-page" class="page hidden">
+            <div class="header">
+                <div class="character-info">
+                    <span id="char-name">角色名</span>
+                    <span id="char-weight" class="weight-display">-- kg</span>
+                </div>
+                <div class="calorie-display">
+                    🔥 <span id="calories-today">0</span> kcal
+                </div>
+            </div>
+
+            <!-- 体重变化动画 -->
+            <div id="weight-change" class="weight-change hidden"></div>
+
+            <!-- 今日进度 -->
+            <div class="card progress-card">
+                <h3>📊 今日进度</h3>
+                <div class="progress-bar">
+                    <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+                </div>
+                <p id="progress-text">目标：消耗 500 kcal</p>
+            </div>
+
+            <!-- 锻炼动作 -->
+            <div class="card">
+                <h3>💪 选择锻炼动作</h3>
+                <div id="exercise-list" class="exercise-list"></div>
+            </div>
+
+            <!-- 离谱动作 -->
+            <div class="card">
+                <h3>🌍 离谱挑战</h3>
+                <div id="crazy-list" class="exercise-list"></div>
+            </div>
+
+            <!-- 卡牌系统 -->
+            <div class="card">
+                <h3>🎴 抽卡</h3>
+                <p class="hint">每天可以抽一次绝对特性卡</p>
+                <button class="btn-primary" onclick="drawCard()" id="draw-btn">抽卡！</button>
+                <div id="card-display" class="card-display hidden"></div>
+            </div>
+
+            <!-- 排行榜 -->
+            <div class="card">
+                <h3>🏆 排行榜</h3>
+                <button class="btn-secondary" onclick="showLeaderboard('loss')">减重榜</button>
+                <button class="btn-secondary" onclick="showLeaderboard('gain')">增重榜</button>
+                <div id="leaderboard" class="leaderboard hidden"></div>
+            </div>
+
+            <!-- 底部导航 -->
+            <div class="bottom-nav">
+                <button class="nav-btn active" onclick="showPage('game')">🏠 首页</button>
+                <button class="nav-btn" onclick="showPage('stats')">📈 统计</button>
+                <button class="nav-btn" onclick="showPage('settings')">⚙️ 设置</button>
+            </div>
+        </div>
+
+        <!-- 统计页面 -->
+        <div id="stats-page" class="page hidden">
+            <div class="header">
+                <h2>📈 数据统计</h2>
+            </div>
+            <div class="card">
+                <h3>总体统计</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-label">初始体重</span>
+                        <span class="stat-value" id="stat-initial">--</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">当前体重</span>
+                        <span class="stat-value" id="stat-current">--</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">累计减重</span>
+                        <span class="stat-value" id="stat-lost">--</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">总消耗</span>
+                        <span class="stat-value" id="stat-calories">--</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <h3>历史记录</h3>
+                <div id="history-list" class="history-list"></div>
+            </div>
+            <button class="nav-btn" onclick="showPage('game')">返回</button>
+        </div>
+
+        <!-- 设置页面 -->
+        <div id="settings-page" class="page hidden">
+            <div class="header">
+                <h2>⚙️ 设置</h2>
+            </div>
+            <div class="card">
+                <h3>体重管理</h3>
+                <div class="form-group">
+                    <label>更新当前体重 (kg)</label>
+                    <input type="number" id="update-weight" placeholder="输入新体重">
+                    <button class="btn-primary" onclick="updateWeight()">更新</button>
+                </div>
+            </div>
+            <div class="card">
+                <h3>游戏设置</h3>
+                <button class="btn-danger" onclick="resetGame()">🗑️ 重置游戏</button>
+            </div>
+            <button class="nav-btn" onclick="showPage('game')">返回</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
