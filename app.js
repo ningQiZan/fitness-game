@@ -398,6 +398,13 @@ function checkNewDay() {
     localStorage.setItem('fitnessGame_lastLogin', today);
 }
 
-// 启动游戏
-init();
-checkNewDay();
+// 启动游戏（确保 DOM 加载完成后执行）
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        init();
+        checkNewDay();
+    });
+} else {
+    init();
+    checkNewDay();
+}
